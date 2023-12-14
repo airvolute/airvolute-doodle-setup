@@ -43,13 +43,19 @@ if [ $? -eq 0 ]; then
 else
     echo "SSH connection to $USERNAME@$CURRENT_MESHIP failed."
 fi
-sshpass -p "" scp "banner" "$USERNAME@$CURRENT_MESHIP:/opt"
 
-# ssh "$USERNAME@$CURRENT_MESHIP" "sed -i '\$d' $REMOTE_FILE_PATH"
-# ssh "$USERNAME@$CURRENT_MESHIP" "echo '$LINE_TO_ADD1' >> $REMOTE_FILE_PATH"
-# ssh "$USERNAME@$CURRENT_MESHIP" "echo '$LINE_TO_ADD2' >> $REMOTE_FILE_PATH"
+# Check if the 'banner' file exists on the remote device
+if sshpass -p "$PASSWORD" ssh "$USERNAME@$CURRENT_MESHIP" 'test -f /opt/banner'; then
+    echo "The banner file already exists on the remote device. Exiting script."
+    # exit 1
+else
+    sshpass -p "" scp "banner" "$USERNAME@$CURRENT_MESHIP:/opt"
+    ssh "$USERNAME@$CURRENT_MESHIP" "sed -i '\$d' $REMOTE_FILE_PATH"
+    ssh "$USERNAME@$CURRENT_MESHIP" "echo '$LINE_TO_ADD1' >> $REMOTE_FILE_PATH"
+    ssh "$USERNAME@$CURRENT_MESHIP" "echo '$LINE_TO_ADD2' >> $REMOTE_FILE_PATH"
+fi
 
-ssh "$USERNAME@$CURRENT_MESHIP" 'bash -s' < radio_communication_setup.sh
+ssh "$USERNAME@$CURRENT_MESHIP" 'ash -s' < radio_communication_setup.sh
 # done
 
 # if [ "$choice" == "y" ]; then
