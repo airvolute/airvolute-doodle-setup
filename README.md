@@ -10,7 +10,9 @@ Currently there are three files:
 
 Run 
 
-```sudo ./initial_setup.sh```
+```
+sudo ./initial_setup.sh
+```
 
 1. First you need to enter your psw because of sudo command
 2. Enter IP of a drone from following subnet 10.223.0.0/16
