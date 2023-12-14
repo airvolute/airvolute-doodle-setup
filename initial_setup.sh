@@ -45,9 +45,11 @@ else
 fi
 sshpass -p "" scp "banner" "$USERNAME@$CURRENT_MESHIP:/opt"
 
-ssh "$USERNAME@$CURRENT_MESHIP" "sed -i '\$d' $REMOTE_FILE_PATH"
-ssh "$USERNAME@$CURRENT_MESHIP" "echo '$LINE_TO_ADD1' >> $REMOTE_FILE_PATH"
-ssh "$USERNAME@$CURRENT_MESHIP" "echo '$LINE_TO_ADD2' >> $REMOTE_FILE_PATH"
+# ssh "$USERNAME@$CURRENT_MESHIP" "sed -i '\$d' $REMOTE_FILE_PATH"
+# ssh "$USERNAME@$CURRENT_MESHIP" "echo '$LINE_TO_ADD1' >> $REMOTE_FILE_PATH"
+# ssh "$USERNAME@$CURRENT_MESHIP" "echo '$LINE_TO_ADD2' >> $REMOTE_FILE_PATH"
+
+ssh "$USERNAME@$CURRENT_MESHIP" 'bash -s' < radio_communication_setup.sh
 # done
 
 # if [ "$choice" == "y" ]; then
