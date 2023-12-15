@@ -13,6 +13,9 @@ REMOTE_FILE_PATH="/opt/factoryreset.sh"
 LINE_TO_ADD1="cp /opt/banner /etc/banner" 
 LINE_TO_ADD2="exit 0"
 
+chmod +x setting_static_ip.sh
+chmod +x radio_communication_setup.sh
+
 #-------------------User input---------------------------------
 
 read -p "Do you want to see output and all the info? (y/n): " choice
