@@ -3,8 +3,9 @@
 Currently there are three files:
 
 1. code to run: initial_setup.sh
-2. banner: Airvolute logo
+2. Airvolute logo: banner
 3. set static ip: setting_static_ip.sh
+4. custom configuration: radio_communication_setup.sh
 
 ## How to use
 
