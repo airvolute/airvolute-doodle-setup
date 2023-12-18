@@ -2,6 +2,13 @@
 
 cp /opt/banner /etc/banner
 
+currentValue=$(uci get simpleconfig.@general[0].freq_band)
+restOfValue=${currentValue#*-}       # This removes 'RM-'
+restOfValue=${restOfValue#*-}        # This removes '2455-'
+
+newFrequency="RM-2455"
+newFreq="${newFrequency}-${restOfValue}"
+
 #------Simpleconfig
 # uci set simpleconfig.@general[0]=general
 # uci set simpleconfig.@general[0].profilemode='general_profile'
@@ -13,10 +20,10 @@ cp /opt/banner /etc/banner
 # uci set simpleconfig.@general[0].default_gui='0'
 uci set simpleconfig.@general[0].bandwidth='10'
 uci set simpleconfig.@general[0].channel='51'
-uci set simpleconfig.@general[0].freq_band='RM-2455-2KM-XW'  #'RM-2455v3-2L-X'
+uci set simpleconfig.@general[0].freq_band=$newFreq   #'RM-2455-2KM-XW'  #'RM-2455v3-2L-X'
 
 #------System
-uci set system.@system[0].submodel='RM-2455-2KM-XW'
+uci set system.@system[0].submodel=$newFreq
 
 #------wireless
 uci set wireless.radio0.channel='51'
