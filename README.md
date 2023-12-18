@@ -10,6 +10,7 @@ Currently there are three files:
 
 Run:
 ```
+chmod +x initial_setup.sh
 sudo ./initial_setup.sh
 ```
 
