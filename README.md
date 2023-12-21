@@ -1,6 +1,6 @@
 # drone_doodle_setup
 
-Currently there are three files:
+Currently there are 4 files:
 
 1. code to run: initial_setup.sh
 2. Airvolute logo: banner
