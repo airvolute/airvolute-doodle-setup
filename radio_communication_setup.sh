@@ -3,11 +3,11 @@
 cp /opt/banner /etc/banner
 
 currentValue=$(uci get simpleconfig.@general[0].freq_band)
-restOfValue=${currentValue#*-}       # This removes 'RM-'
-restOfValue=${restOfValue#*-}        # This removes '2455-'
-
-newFrequency="RM-2455"
-newFreq="${newFrequency}-${restOfValue}"
+restOfValue=$currentValue
+restOfValue=${currentValue#*-}       # removes 'RM-'
+restOfValue=$(echo "$currentValue" | sed -e 's/^[^-]*-[0-9]*//')
+newFrequency="RM-2450"
+newFreq="${newFrequency}${restOfValue}"
 
 #------Simpleconfig
 # uci set simpleconfig.@general[0]=general

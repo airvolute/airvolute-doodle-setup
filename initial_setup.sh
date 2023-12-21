@@ -7,7 +7,7 @@ USERNAME="root"
 PASSWORD=""
 
 connection_name="DoodleLabNet"
-interface_name="eno1"
+interface_name="enx00301a39c881" #"eth1" "eno1"
 
 REMOTE_FILE_PATH="/opt/factoryreset.sh"   
 LINE_TO_ADD1="cp /opt/banner /etc/banner" 
@@ -39,26 +39,38 @@ fi
 # ip_addresses_search=($CURRENT_MESHIP)
 
 # for ip in $ip_addresses_search; do
-ssh -o ConnectTimeout=5 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o BatchMode=yes "$USERNAME@$CURRENT_MESHIP" exit
-if [ $? -eq 0 ]; then
-    echo "SSH connection to $USERNAME@$CURRENT_MESHIP was successful."
-    ip_addresses+=("$ip")
-else
-    echo "SSH connection to $USERNAME@$CURRENT_MESHIP failed."
-fi
-
-# Check if the 'banner' file exists on the remote device
-if sshpass -p "$PASSWORD" ssh "$USERNAME@$CURRENT_MESHIP" 'test -f /opt/banner'; then
+if ssh "$USERNAME@$CURRENT_MESHIP" 'test -f /opt/banner'; then
     echo "The banner file already exists on the remote device. Exiting script."
     # exit 1
 else
-    sshpass -p "" scp "banner" "$USERNAME@$CURRENT_MESHIP:/opt"
+    scp "banner" "$USERNAME@$CURRENT_MESHIP:/opt"
     ssh "$USERNAME@$CURRENT_MESHIP" "sed -i '\$d' $REMOTE_FILE_PATH"
     ssh "$USERNAME@$CURRENT_MESHIP" "echo '$LINE_TO_ADD1' >> $REMOTE_FILE_PATH"
     ssh "$USERNAME@$CURRENT_MESHIP" "echo '$LINE_TO_ADD2' >> $REMOTE_FILE_PATH"
 fi
 
 ssh "$USERNAME@$CURRENT_MESHIP" 'ash -s' < radio_communication_setup.sh
+#-------using sshpass
+# ssh -o ConnectTimeout=5 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o BatchMode=yes "$USERNAME@$CURRENT_MESHIP" exit
+# if [ $? -eq 0 ]; then
+#     echo "SSH connection to $USERNAME@$CURRENT_MESHIP was successful."
+#     ip_addresses+=("$ip")
+# else
+#     echo "SSH connection to $USERNAME@$CURRENT_MESHIP failed."
+# fi
+
+# # Check if the 'banner' file exists on the remote device
+# if sshpass -p "$PASSWORD" ssh "$USERNAME@$CURRENT_MESHIP" 'test -f /opt/banner'; then
+#     echo "The banner file already exists on the remote device. Exiting script."
+#     # exit 1
+# else
+#     sshpass -p "" scp "banner" "$USERNAME@$CURRENT_MESHIP:/opt"
+#     ssh "$USERNAME@$CURRENT_MESHIP" "sed -i '\$d' $REMOTE_FILE_PATH"
+#     ssh "$USERNAME@$CURRENT_MESHIP" "echo '$LINE_TO_ADD1' >> $REMOTE_FILE_PATH"
+#     ssh "$USERNAME@$CURRENT_MESHIP" "echo '$LINE_TO_ADD2' >> $REMOTE_FILE_PATH"
+# fi
+#-----------
+# ssh "$USERNAME@$CURRENT_MESHIP" 'ash -s' < radio_communication_setup.sh
 # done
 
 # if [ "$choice" == "y" ]; then
