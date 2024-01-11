@@ -25,6 +25,6 @@ In the code you need to change interface_name in initial_setup.sh. However that 
 
 1. After executing the script, the radio setup is implemented. However, it is not immediately visible in the Web GUI. The changes become visible in the GUI only after turning the radio off and then on again.
 
-2. Future Fix: To change the frequency of the radio, it is necessary to manually locate the value in /etc/config/simpleconfig and then include it in the radio_communication_setup script.
+2. (!!Already fixed!!) Future Fix: To change the frequency of the radio, it is necessary to manually locate the value in /etc/config/simpleconfig and then include it in the radio_communication_setup script.
 
 To change frequency it is needed to access three files and in all of them change the value of frequency. This program those it automatically for all of them.
