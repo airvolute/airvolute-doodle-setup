@@ -9,12 +9,19 @@ Currently there are 4 files:
 
 ## How to use
 
-Run:
+Run manual configuration:
 ```
 chmod +x initial_setup.sh
 sudo ./initial_setup.sh
 ```
 
+Run automatic configuration:
+```
+chmod +x initial_setup.sh
+sudo ./initial_setup.sh n 10.223.0.1 10.223.94.103
+
+sudo ./initial_setup.sh y/n DroneIP radioIP
+```
 1. First you need to enter your psw because of sudo command
 2. Enter IP of a drone from following subnet 10.223.0.0/16
 3. Enter IP address of the mesh radio in the drone
