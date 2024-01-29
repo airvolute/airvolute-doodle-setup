@@ -17,13 +17,26 @@ chmod +x setting_static_ip.sh
 chmod +x radio_communication_setup.sh
 
 #-------------------User input---------------------------------
+if [ -z "$1" ]; then
+    read -p "Do you want to see output and all the info? (y/n): " choice
+else
+    choice=$1
+fi
 
-read -p "Do you want to see output and all the info? (y/n): " choice
+if [ -z "$2" ]; then
+    read -p "Enter the drone IP: " CURRENT_DRONEIP
+else
+    CURRENT_DRONEIP=$2
+fi
 
-read -p "Enter the drone IP: " CURRENT_DRONEIP
-echo
+if [ -z "$3" ]; then
+    read -p "Enter the Doodle lab radio IP: " CURRENT_MESHIP
+else
+    CURRENT_MESHIP=$3
+fi
 
-read -p "Enter the Doodle lab radio IP: " CURRENT_MESHIP
+echo "Drone IP: $CURRENT_DRONEIP"
+echo "Doodle Lab Radio IP: $CURRENT_MESHIP"
 echo
 
 #-------------------Set main IP--------------------------------
