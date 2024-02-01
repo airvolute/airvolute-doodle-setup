@@ -3,6 +3,8 @@
 # subnet="10.223.0"
 # ip_file="used_ips.txt"
 
+cd "$(dirname "$0")"
+
 USERNAME="root"
 PASSWORD=""
 
