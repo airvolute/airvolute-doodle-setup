@@ -6,8 +6,12 @@ currentValue=$(uci get simpleconfig.@general[0].freq_band)
 restOfValue=$currentValue
 restOfValue=${currentValue#*-}       # removes 'RM-'
 restOfValue=$(echo "$currentValue" | sed -e 's/^[^-]*-[0-9]*//')
-newFrequency="RM-2450"
+newFrequency="RM-2455"
 newFreq="${newFrequency}${restOfValue}"
+
+echo $currentValue
+echo $restOfValue
+echo $newFreq
 
 #------Simpleconfig
 # uci set simpleconfig.@general[0]=general
@@ -20,17 +24,27 @@ newFreq="${newFrequency}${restOfValue}"
 # uci set simpleconfig.@general[0].default_gui='0'
 uci set simpleconfig.@general[0].bandwidth='10'
 uci set simpleconfig.@general[0].channel='51'
-uci set simpleconfig.@general[0].freq_band=$newFreq   #'RM-2455-2KM-XW'  #'RM-2455v3-2L-X'
+uci set simpleconfig.@general[0].freq_band=$newFreq   #'RM-2455-2KM-XW toto je nove .200.cislo'  #'RM-2455v3-2L-X'  RM-915v3-1L-X
+
+echo "Simpleconfig ferq setup"
 
 #------System
 uci set system.@system[0].submodel=$newFreq
+
+echo "System ferq setup"
 
 #------wireless
 uci set wireless.radio0.channel='51'
 uci set wireless.radio0.chanbw='10'
 
+echo "Wireless setup"
+
 #------save and apply
 uci commit
 
+echo "Commit"
+
 /etc/init.d/socat restart
-/etc/init.d/network restart
+# /etc/init.d/network restart
+
+echo "Socket restart"
