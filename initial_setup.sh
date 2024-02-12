@@ -9,7 +9,7 @@ USERNAME="root"
 PASSWORD=""
 
 connection_name="DoodleLabNet"
-interface_name="enx00301a39c881" #"eth1" "eno1"
+interface_name="eth1" #"eth1" "eno1"
 
 REMOTE_FILE_PATH="/opt/factoryreset.sh"   
 LINE_TO_ADD1="cp /opt/banner /etc/banner" 
@@ -54,6 +54,10 @@ fi
 # ip_addresses_search=($CURRENT_MESHIP)
 
 # for ip in $ip_addresses_search; do
+
+# Prevent the script  from hanging on connection prompt 
+ssh -o ConnectTimeout=5 -o StrictHostKeyChecking=no -o BatchMode=yes "$USERNAME@$CURRENT_MESHIP" exit
+
 if ssh "$USERNAME@$CURRENT_MESHIP" 'test -f /opt/banner'; then
     echo "The banner file already exists on the remote device. Exiting script."
     # exit 1
