@@ -31,7 +31,7 @@ uci set system.@system[0].submodel=$newFreq
 
 #------wireless
 uci set wireless.radio0.channel='51'
-uci set wireless.radio0.chanbw='10'
+uci set wireless.radio0.chanbw='26'
 
 #------save and apply
 uci commit
